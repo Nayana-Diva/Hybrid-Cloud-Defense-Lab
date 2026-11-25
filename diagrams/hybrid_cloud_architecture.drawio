@@ -1,0 +1,61 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="hybrid1" name="Hybrid Cloud Defense Architecture">
+    <mxGraphModel dx="1304" dy="777" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="internet" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="INTERNET&#xa;External Users" vertex="1">
+          <mxGeometry height="65" width="200" x="480" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="firewall" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" value="PERIMETER FIREWALL&#xa;Stateful Inspection&#xa;Application Filtering&#xa;Default Deny" vertex="1">
+          <mxGeometry height="100" width="260" x="450" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="dmz" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" value="DMZ SUBNET&#xa;Web Server&#xa;HTTPS TCP/443&#xa;Reverse Proxy" vertex="1">
+          <mxGeometry height="110" width="250" x="80" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="internal" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" value="INTERNAL NETWORK&#xa;Application Server&#xa;Database Server&#xa;Restricted Access" vertex="1">
+          <mxGeometry height="110" width="260" x="450" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="cloud" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="CLOUD VPC&#xa;Private Cloud Subnet&#xa;Cloud Workloads&#xa;Encrypted HTTPS TCP/443" vertex="1">
+          <mxGeometry height="110" width="260" x="830" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="ids" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;" value="IDS / IPS&#xa;Network Traffic Monitoring&#xa;Port Scan Detection&#xa;Security Alerts" vertex="1">
+          <mxGeometry height="100" width="260" x="450" y="530" as="geometry" />
+        </mxCell>
+        <mxCell id="endpoint" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="ENDPOINT SECURITY&#xa;Malware Detection&#xa;File Quarantine" vertex="1">
+          <mxGeometry height="75" width="250" x="80" y="690" as="geometry" />
+        </mxCell>
+        <mxCell id="email" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="EMAIL SECURITY&#xa;SPF / DKIM / DMARC&#xa;Suspicious Email Quarantine" vertex="1">
+          <mxGeometry height="75" width="260" x="830" y="690" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="internet" style="endArrow=block;html=1;" target="firewall" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="firewall" style="endArrow=block;html=1;" target="dmz" value="HTTPS">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="firewall" style="endArrow=block;html=1;" target="internal" value="Restricted access">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="firewall" style="endArrow=block;html=1;" target="cloud" value="Secure connection">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="dmz" style="endArrow=block;html=1;" target="internal" value="Database access">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="internal" style="endArrow=block;html=1;" target="cloud" value="Encrypted traffic">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="internal" style="dashed=1;endArrow=open;html=1;" target="ids" value="Traffic monitoring">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="endpoint" style="dashed=1;endArrow=open;html=1;" target="internal" value="Endpoint protection">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="email" style="dashed=1;endArrow=open;html=1;" target="cloud" value="Email filtering">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

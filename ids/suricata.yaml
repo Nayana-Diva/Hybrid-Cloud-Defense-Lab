@@ -1,0 +1,31 @@
+﻿# Suricata Integration Configuration
+# Reference configuration for the proposed IDS/IPS deployment.
+# This is NOT a complete, validated Suricata configuration.
+
+suricata_integration:
+  deployment_status: "Proposed - not deployed"
+
+  deployment_type:
+    - Network IDS
+    - Network IPS
+
+  monitoring_locations:
+    - DMZ network boundary
+    - Internal network boundary
+    - Cloud VPC network boundary
+
+  monitoring_objectives:
+    - Detect port scanning
+    - Identify suspicious network connections
+    - Monitor unauthorized access attempts
+    - Generate security alerts
+
+  integration_plan:
+    engine: "Suricata"
+    mode: "IDS initially, IPS after validation"
+    alert_output: "Fast and EVE JSON logs"
+
+  limitations:
+    - Suricata is not installed in this project.
+    - Live packet inspection is not implemented.
+    - The current Python IDS uses predefined detection patterns.

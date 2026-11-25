@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hybrid Cloud Defense Lab</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Hybrid Cloud Defense Lab</h1>
+    <p>Layered Enterprise Network Security Monitoring</p>
+    <span>? SECURITY LAB ACTIVE</span>
+</header>
+
+<main>
+<section class="cards">
+    <div class="card"><h3>01 | Firewall</h3><p>Stateful traffic inspection and access control.</p></div>
+    <div class="card"><h3>02 | Intrusion Detection</h3><p>Identify suspicious network activity.</p></div>
+    <div class="card"><h3>03 | Malware Defense</h3><p>Detect known malware test signatures.</p></div>
+    <div class="card"><h3>04 | Email Security</h3><p>Evaluate SPF, DKIM and DMARC.</p></div>
+</section>
+
+<section class="panel">
+<h2>Firewall Traffic Inspection</h2>
+<div class="grid">
+<label>Source
+<select id="source">
+<option>INTERNET</option><option>DMZ</option><option>INTERNAL</option><option>CLOUD</option>
+</select></label>
+<label>Destination
+<select id="destination">
+<option>DMZ</option><option>INTERNAL</option><option>CLOUD</option><option>INTERNET</option>
+</select></label>
+<label>Protocol
+<select id="protocol"><option>TCP</option><option>UDP</option></select></label>
+<label>Port
+<input id="port" type="number" value="443"></label>
+</div>
+<button onclick="firewall()">Inspect Traffic</button>
+<pre id="firewall-result">Waiting...</pre>
+</section>
+
+<section class="panel">
+<h2>Intrusion Detection</h2>
+<p>Enter destination ports separated by commas.</p>
+<input id="ports" value="21,22,23,80,443">
+<button onclick="intrusion()">Detect Intrusion</button>
+<pre id="intrusion-result">Waiting...</pre>
+</section>
+
+<section class="panel">
+<h2>Malware Scanner</h2>
+<p>Enter harmless test content or the EICAR test signature.</p>
+<textarea id="content" placeholder="Enter test content"></textarea>
+<button onclick="malware()">Scan Content</button>
+<pre id="malware-result">Waiting...</pre>
+</section>
+
+<section class="panel">
+<h2>Email Authentication</h2>
+<div class="grid">
+<label>SPF<select id="spf"><option>PASS</option><option>FAIL</option></select></label>
+<label>DKIM<select id="dkim"><option>PASS</option><option>FAIL</option></select></label>
+<label>DMARC<select id="dmarc"><option>PASS</option><option>FAIL</option></select></label>
+</div>
+<button onclick="emailCheck()">Verify Email</button>
+<pre id="email-result">Waiting...</pre>
+</section>
+</main>
+
+<footer>Hybrid Cloud Defense Lab | Academic Security Simulation</footer>
+
+<script>
+async function send(endpoint, data, output) {
+    const element = document.getElementById(output);
+    element.textContent = "Processing...";
+    try {
+        const response = await fetch(endpoint, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(data)
+        });
+        const result = await response.json();
+        element.textContent = JSON.stringify(result, null, 2);
+    } catch (error) {
+        element.textContent = "Error: " + error.message;
+    }
+}
+
+function firewall() {
+    send("/api/firewall", {
+        source: document.getElementById("source").value,
+        destination: document.getElementById("destination").value,
+        protocol: document.getElementById("protocol").value,
+        port: document.getElementById("port").value
+    }, "firewall-result");
+}
+
+function intrusion() {
+    const ports = document.getElementById("ports").value
+        .split(",").map(x => Number(x.trim()))
+        .filter(x => Number.isInteger(x) && x >= 1 && x <= 65535);
+    send("/api/intrusion", {ports}, "intrusion-result");
+}
+
+function malware() {
+    send("/api/malware", {
+        content: document.getElementById("content").value
+    }, "malware-result");
+}
+
+function emailCheck() {
+    send("/api/email", {
+        spf: document.getElementById("spf").value,
+        dkim: document.getElementById("dkim").value,
+        dmarc: document.getElementById("dmarc").value
+    }, "email-result");
+}
+</script>
+</body>
+</html>

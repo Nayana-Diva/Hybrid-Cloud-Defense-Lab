@@ -1,0 +1,12 @@
+﻿version: "3.9"
+
+# Proposed network lab structure.
+# No containers are deployed by this configuration.
+
+services:
+  security-dashboard:
+    build: .
+    container_name: hybrid-cloud-security-dashboard
+    ports:
+      - "5000:5000"
+    restart: unless-stopped

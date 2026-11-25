@@ -1,0 +1,17 @@
+﻿# Custom IDS Detection Rules
+# Academic rule reference for the Python-based IDS simulation.
+
+# Rule 1: Port Scanning
+# Trigger: Five or more unique destination ports.
+# Severity: HIGH
+# Action: Generate a port-scanning alert.
+
+# Rule 2: Suspicious Port Activity
+# Trigger: Connection to a predefined suspicious port.
+# Ports: 4444, 5555, 6667, 31337
+# Severity: HIGH
+# Action: Generate a suspicious-port alert.
+
+# Note:
+# These are documentation rules for the custom Python IDS.
+# They are not native Suricata or Snort rule syntax.
